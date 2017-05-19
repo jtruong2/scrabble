@@ -1,11 +1,9 @@
+require 'pry'
 class Scrabble
+  attr_reader :values
 
-  def score(word)
-    1
-  end
-
-  def point_values
-    {
+  def initialize
+    @values = {
       "A"=>1, "B"=>3, "C"=>3, "D"=>2,
       "E"=>1, "F"=>4, "G"=>2, "H"=>4,
       "I"=>1, "J"=>8, "K"=>5, "L"=>1,
@@ -15,4 +13,19 @@ class Scrabble
       "Y"=>4, "Z"=>10
     }
   end
+
+
+  def score(word)
+    list_of_values = []
+    if word == '' || word == nil
+      list_of_values << 0
+    else
+      list_of_letters = word.upcase.chars
+      list_of_letters.each do |x|
+        list_of_values << @values[x]
+      end
+    end
+    list_of_values.reduce(:+)
+  end
+
 end
